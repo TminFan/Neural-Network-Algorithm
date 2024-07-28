@@ -9,7 +9,7 @@ jobs:
 
         steps:
             - name: Check out the repository on the runner
-              uses: actions/checkout@4
+              uses: actions/checkout@v4
 
             - name: Set up required Python library
               run: |
