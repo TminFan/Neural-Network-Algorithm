@@ -1,0 +1,23 @@
+name: "train and test neural network models"
+on: [push]
+
+jobs:
+    compare-different-neural-network-model-configuration:
+        runs-on: ubuntu-latest
+        container:
+          image: pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
+
+        steps:
+            - name: Check out the repository on the runner
+              uses: actions/checkout@4
+
+            - name: Set up required Python library
+              run: |
+                if [ `stat -c %A requirements.txt | sed 's/...\(.\).\+/\1/'` == "x" ] \
+                then \
+                  chmod +x requirements.txt \
+                fi
+                pip install --no-cache-dir -r requirements.txt
+
+            - name: Run Python script
+              run: python auto_nn.py
