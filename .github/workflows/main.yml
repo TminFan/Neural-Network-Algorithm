@@ -13,9 +13,9 @@ jobs:
 
             - name: Set up required Python library
               run: |
-                if [ `stat -c %A requirements.txt | sed 's/...\(.\).\+/\1/'` == "x" ] \
-                then \
-                  chmod +x requirements.txt \
+                if [ `stat -c %A requirements.txt | sed 's/...\(.\).\+/\1/'` == "x" ]
+                then 
+                  chmod +x requirements.txt 
                 fi
                 pip install --no-cache-dir -r requirements.txt
 
