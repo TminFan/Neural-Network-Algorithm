@@ -4,6 +4,7 @@ import torch
 import matplotlib.pyplot as plt
 from pathlib import Path
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, MinMaxScaler
+from jinja2 import Environment, PackageLoader, select_autoescape
 
 from Model.NeuralNetworkAutoDifferentiation import Neural_Network
 
@@ -315,3 +316,26 @@ if __name__ == '__main__':
         af_outfile.write(act_func_report)
 
     print(act_func_report)
+
+    env = Environment(
+        loader=PackageLoader("Model"),
+        autoescape=select_autoescape
+    )
+
+    performance_report_template = env.get_template("report.html.jinja")
+
+    output_report_template = performance_report_template.render(
+        layers_performances=[
+            two_layer_sigmoid_test_acc,
+            three_layer_sigmoid_test_acc,
+            five_layer_sigmoid_test_acc
+        ],
+        ac_func_performances=[
+            sigmoid_test_acc,
+            relu_test_acc,
+            tanh_test_acc
+        ]
+    )
+
+    with open("output_record.html", "w") as rf:
+        rf.write(output_report_template)

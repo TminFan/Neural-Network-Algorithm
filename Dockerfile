@@ -1,5 +1,7 @@
 FROM pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
 
+WORKDIR /usr/src
+
 COPY data/*.csv data/
 COPY Model/ Model/
 COPY *.py .
