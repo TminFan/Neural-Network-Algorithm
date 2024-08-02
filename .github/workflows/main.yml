@@ -24,6 +24,7 @@ jobs:
 
             - name: Output model performance report to job summary
               run: |
+                ls
                 if [ ! -f output_record.html ]; then
                   echo "File not found"
                 else
