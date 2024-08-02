@@ -23,11 +23,10 @@ jobs:
               run: python auto_nn.py
 
             - name: Output model performance report to job summary
+              shell: bash 
               run: |
-                ls
                 if [ ! -f output_record.html ]; then
                   echo "File not found"
                 else
-                  report_content=$(<output_record.html)
-                  echo "${report_content}"
+                  cat output_record.html >$GITHUB_STEP_SUMMARY
                 fi
