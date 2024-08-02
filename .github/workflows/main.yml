@@ -4,23 +4,39 @@ on: [push]
 jobs:
     compare-different-neural-network-model-configuration:
         runs-on: ubuntu-latest
-        container:
-          image: pytorch/pytorch:2.2.2-cuda12.1-cudnn8-runtime
-
         steps:
             - name: Check out the repository on the runner
               uses: actions/checkout@v4
 
-            - name: Set up required Python library
+            - name: Cache Python venv
+              uses: actions/cache@v4
+              id: cache-venv
+              env:
+                cache-name: auto_nn
+              with:
+                path: ./.venv/
+                key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('requirements.txt') }}
+                restore-keys: |
+                  ${{ runner.os }}-${{ env.cache-name }}-
+
+            - name: Install required Python libraries
+              shell: bash
               run: |
                 if [ `stat -c %A requirements.txt | sed 's/...\(.\).\+/\1/'` == "x" ]
                 then 
                   chmod +x requirements.txt 
                 fi
-                pip install --no-cache-dir -r requirements.txt
+                python -m venv ./.venv
+                source ./.venv/bin/activate
+                pip install --upgrade
+                pip install -r requirements.txt
+              if: steps.cache-venv.outputs.cache-hit != 'true'
 
             - name: Run Python script
-              run: python auto_nn.py
+              shell: bash
+              run: |
+                source ./.venv/bin/activate
+                python auto_nn.py
 
             - name: Output model performance report to job summary
               shell: bash 

@@ -213,7 +213,6 @@ if __name__ == '__main__':
     X_test = scaler.transform(X_test)
     test_label_encoder, integer_y_test, test_onehot_encoder, onehot_y_test = encode_labels(y_test)
 
-    print("Train Neural Network model with options of three different layer parameters")
     # Train the Neural Network model 100 epochs with three different layer parameters
     two_layer_sigmoid_train_hist, _, two_layer_sigmoid_test_acc = two_layers_model(
         "sigmoid", X_train, onehot_y_train,
@@ -245,33 +244,6 @@ if __name__ == '__main__':
          "plot_diff_layers_comparison.png"
     )
 
-    layers_report: str = \
-    f"""
-    Two layer model with Sigmoid activation function:
-        - hidden layer nodes: [2, 3]
-        - Test Accuracy: {two_layer_sigmoid_test_acc}
-    Five layer model with Sigmoid activation function:
-        - hidden layer nodes: [16, 8, 4, 2, 3]
-        - Test Accuracy: {five_layer_sigmoid_test_acc}
-    Three layer model with Sigmoid activation function:
-        - hidden layer nodes: [8, 2, 3]
-        - Test Accuracy: {three_layer_sigmoid_test_acc}
-    """
-    
-    with open("layer_comparison.txt", "w") as lc_outfile:
-        lc_outfile.write(layers_report)
-
-    print(layers_report)
-
-    print("------------------------------------------------------------------\n\
-                                                                             \n\
-                                                                             \n\
-                                                                             \n\
-          --------------------------------------------------------------------\
-          ")
-    
-    print("Train Neural Network model with different activation functions")
-
     # Train the Neural Network model 100 epochs with three different activation functions
     sigmoid_train_hist, _, sigmoid_test_acc = two_layers_model(
         "sigmoid", X_train, onehot_y_train,
@@ -302,21 +274,6 @@ if __name__ == '__main__':
          "plot_diff_act_fun_comparison.png"
     )
 
-    act_func_report: str = \
-    f"""
-    Two layer model with Sigmoid activation function:
-        - Test Accuracy: {sigmoid_test_acc}
-    Two layer model with Relu activation function:
-        - Test Accuracy: {relu_test_acc}
-    Two layer model with Tanh activation function:
-        - Test Accuracy: {tanh_test_acc}
-    """
-
-    with open("act_func_comparison.txt", "w") as af_outfile:
-        af_outfile.write(act_func_report)
-
-    print(act_func_report)
-
     env = Environment(
         loader=PackageLoader("Model"),
         autoescape=select_autoescape
@@ -334,6 +291,10 @@ if __name__ == '__main__':
             sigmoid_test_acc,
             relu_test_acc,
             tanh_test_acc
+        ],
+        plots_paths=[
+            current_location.joinpath("plot_diff_layers_comparison.png"),
+            current_location.joinpath("plot_diff_act_fun_comparison.png")
         ]
     )
 
