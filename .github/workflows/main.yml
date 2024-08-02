@@ -28,6 +28,6 @@ jobs:
                 if [ ! -f output_record.html ]; then
                   echo "File not found"
                 else
-                  $report_content=$(<output_record.html)
+                  report_content=$(<output_record.html)
                   echo "${report_content}"
                 fi
