@@ -29,3 +29,4 @@ jobs:
                 else
                   $report_content=$(<output_record.html)
                   echo "${report_content}"
+                fi

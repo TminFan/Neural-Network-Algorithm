@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Neural Network Model Training and Testing</h1>
+    <ol>
+        <li>Model Performance comparison with different hidden layers</li>
+        <ol>
+            <li>Two hidden layers</li>
+            <li>Three hidden layers</li>
+            <li>Five hidden layers</li>
+        </ol>
+        <li>Model Performance comparison with different activation functions</li>
+        <ol>
+            <li>Sigmoid function</li>
+            <li>Relu function</li>
+            <li>Tanh function</li>
+        </ol>
+    </ol>
+
+    <section>
+        <h2>Model Performance comparison with different hidden layers</h2>
+        <pre>
+            Two layer model with Sigmoid activation function:
+                - hidden layer nodes: [2, 3]
+                - Test Accuracy: 1.0
+            Three layer model with Sigmoid activation function:
+                - hidden layer nodes: [8, 2, 3]
+                - Test Accuracy: 1.0
+            Five layer model with Sigmoid activation function:
+                - hidden layer nodes: [16, 8, 4, 2, 3]
+                - Test Accuracy: 0.58
+        </pre>
+        <img src="plot_diff_layers_comparison.png">
+    </section>
+
+    <section>
+        <h2>Model Performance comparison with different activation functions</h2>
+        <pre>
+            Two layer model with Sigmoid activation function:
+             - Test Accuracy: 1.0
+            Two layer model with Relu activation function:
+             - Test Accuracy: 0.45
+            Two layer model with Tanh activation function:
+             - Test Accuracy: 0.94
+        </pre>
+        <img src="plot_diff_act_fun_comparison.png">
+    </section>
+</body>
