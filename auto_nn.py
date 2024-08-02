@@ -293,8 +293,8 @@ if __name__ == '__main__':
             tanh_test_acc
         ],
         plots_paths=[
-            current_location.joinpath("plot_diff_layers_comparison.png"),
-            current_location.joinpath("plot_diff_act_fun_comparison.png")
+            "./plot_diff_layers_comparison.png",
+            "./plot_diff_act_fun_comparison.png"
         ]
     )
 
