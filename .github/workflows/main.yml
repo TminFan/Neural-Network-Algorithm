@@ -24,5 +24,8 @@ jobs:
 
             - name: Output model performance report to job summary
               run: |
-                report_output=$(<output_record.html)
-                echo "${report_output}" >> $GITHUB_STEP_SUMMARY
+                if [ ! -f output_record.html ]; then
+                  echo "File not found"
+                else
+                  $report_content=$(<output_record.html)
+                  echo "${report_content}"
