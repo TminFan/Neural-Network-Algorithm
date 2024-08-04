@@ -45,5 +45,13 @@ jobs:
                   echo "File not found"
                 else
                   cat output_record.html >$GITHUB_STEP_SUMMARY
-                  echo "<img src='plot_diff_layers_comparison.png'>" >>$GITHUB_STEP_SUMMARY
                 fi
+
+            - name: Upload model training history plots
+              uses: actions/upload-artifact@v4
+              with:
+                name: model-training-history-plots
+                path: |
+                  ./plot_diff_layers_comparison.png
+                  ./plot_diff_act_fun_comparison.png
+                if-no-files-found: "warn"

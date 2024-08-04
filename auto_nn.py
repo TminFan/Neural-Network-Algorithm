@@ -291,10 +291,6 @@ if __name__ == '__main__':
             sigmoid_test_acc,
             relu_test_acc,
             tanh_test_acc
-        ],
-        plots_paths=[
-            "./plot_diff_layers_comparison.png",
-            "./plot_diff_act_fun_comparison.png"
         ]
     )
 
