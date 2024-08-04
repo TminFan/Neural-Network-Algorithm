@@ -45,4 +45,5 @@ jobs:
                   echo "File not found"
                 else
                   cat output_record.html >$GITHUB_STEP_SUMMARY
+                  echo "<img src='./plot_diff_layers_comparison.png'>" >>$GITHUB_STEP_SUMMARY
                 fi
