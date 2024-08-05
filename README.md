@@ -2,7 +2,7 @@
 
 ## Files Introduction
 
-This repository contains two Python scripts that interact with distinct neural network algorithms located in the Model package:
+This repository contains two Python scripts that interact with distinct neural network algorithms located in the Model package. Both Neural Network Algorithms are online learning.:
 
 <dl>
     <dt><b>manual_nn.py</b></dt>
@@ -11,7 +11,24 @@ This repository contains two Python scripts that interact with distinct neural n
     <dd>This script utilizes the PyTorch machine learning library to automate forward and backward propagation processes. The implementation can be found in the `NeuralNetworkAutoDifferentiation` module of the Model package. It allows for performance comparison across different activation functions and hidden layer configurations.</dd>
 </dl>
 
-Both Neural Network Algorithms are online learning.
+<p>
+A GitHub workflow has been added to automatically test model development in `auto_nn.py`. This workflow is triggered by any `push` event.
+</p>
+<h3>Workflow Outputs:</h3>
+<dl>
+    <dt><b>Model Performance:</b></dt>
+    <dd>Performance metrics are captured in the `report.html.jinja` template and displayed in the GitHub job step summary upon workflow completion.</dd>
+    <dt><b>Training History Plots:</b></dt>
+    <dd>All plots showing model training history are uploaded as artifacts and can be accessed on the same page as the workflow job summary.</dd>
+</dl>
+
+<h3>Caching Dependencies:</h3>
+<p>
+The workflow leverages GitHub's cache action to speed up the pipeline by caching environment dependencies. The initial run of the workflow takes approximately six minutes. Subsequent runs are faster, approximately two minutes, due to dependency caching. Note that there are some limitations to using GitHub's cache action. For more details, refer to the <a href='https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy'>"Cache dependencies".</a>
+</p>
+
+<h3>Local Testing:</h3>
+The provided Dockerfile facilitates testing the model on local machines.
 
 ## Getting Started
 Follow the steps below to set up and run the neural network algorithms:
