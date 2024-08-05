@@ -1,0 +1,57 @@
+name: "train and test neural network models"
+on: [push]
+
+jobs:
+    compare-different-neural-network-model-configuration:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out the repository on the runner
+              uses: actions/checkout@v4
+
+            - name: Cache Python venv
+              uses: actions/cache@v4
+              id: cache-venv
+              env:
+                cache-name: auto_nn
+              with:
+                path: ./.venv/
+                key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('requirements.txt') }}
+                restore-keys: |
+                  ${{ runner.os }}-${{ env.cache-name }}-
+
+            - name: Install required Python libraries
+              shell: bash
+              run: |
+                if [ `stat -c %A requirements.txt | sed 's/...\(.\).\+/\1/'` == "x" ]
+                then 
+                  chmod +x requirements.txt 
+                fi
+                python -m venv ./.venv
+                source ./.venv/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+              if: steps.cache-venv.outputs.cache-hit != 'true'
+
+            - name: Run Python script
+              shell: bash
+              run: |
+                source ./.venv/bin/activate
+                python auto_nn.py
+
+            - name: Output model performance report to job summary
+              shell: bash 
+              run: |
+                if [ ! -f output_record.html ]; then
+                  echo "File not found"
+                else
+                  cat output_record.html >$GITHUB_STEP_SUMMARY
+                fi
+
+            - name: Upload model training history plots
+              uses: actions/upload-artifact@v4
+              with:
+                name: model-training-history-plots
+                path: |
+                  ./plot_diff_layers_comparison.png
+                  ./plot_diff_act_fun_comparison.png
+                if-no-files-found: "warn"
